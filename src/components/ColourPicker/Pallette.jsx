@@ -25,7 +25,7 @@ const renderPalette = (ctx, hue, { width, height }) => {
 
 export default function Palette({ hue, onColourUpdate }) {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-    const [markerPosition, setMarkerPosition] = useState({});
+    const [markerPosition, setMarkerPosition] = useState({ x: 0, y: 0});
     const ref = useRef(null);
 
     const selectColour = event => {
@@ -38,7 +38,20 @@ export default function Palette({ hue, onColourUpdate }) {
 
     useLayoutEffect(() => ref.current
         && setDimensions({ width: ref.current.offsetWidth, height: ref.current.offsetHeight }), []);
-    useEffect(() => ref.current && renderPalette(ref.current.getContext('2d'), hue, dimensions), [hue, dimensions]);
+    useEffect(() => {
+        if (!ref.current) return;
+
+        const canvas = ref.current;
+
+        renderPalette(canvas.getContext('2d'), hue, dimensions);
+
+        if (hue !== 0) {
+            // The hue has been changed, so we need to update the selected colour.
+            const colour = getPixelAsRGBHex(canvas, markerPosition);
+            onColourUpdate(colour);
+        }
+
+    }, [hue, dimensions, onColourUpdate, markerPosition]);
 
     return (
         <div className={'palette'}>
