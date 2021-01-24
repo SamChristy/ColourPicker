@@ -1,3 +1,3 @@
 # 🎨 ColourPicker
 
-View live demo: 
+[View live demo](http://samchristy.github.io/ColourPicker/)
