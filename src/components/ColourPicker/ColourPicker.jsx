@@ -6,7 +6,7 @@ import ColourSwatch from './ColourSwatch'
 import './ColourPicker.css';
 
 export default function ColourPicker({onColourUpdate = () => {}, ...props}) {
-    const [colour, setColour] = useState('#ff0000');
+    const [colour, setColour] = useState('');
     const [hue, setHue] = useState(0);
     const ref = useRef(null);
 
