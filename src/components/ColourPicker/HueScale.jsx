@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
+import { getClickCoords } from "../../util/canvas";
+
+
 export default function HueScale({ width, height, onHueUpdate }) {
     const ref = useRef(null);
 
@@ -13,11 +16,8 @@ export default function HueScale({ width, height, onHueUpdate }) {
         ctx.fillStyle = hueGradient;
         ctx.fillRect(width - width, 0, width, height);
     };
-
     const inferHue = event => {
-        const canvas = ref.current;
-        const boundingBox = canvas.getBoundingClientRect();
-        const y = event.clientY - boundingBox.top;
+        const { y } = getClickCoords(ref.current, event)
 
         onHueUpdate(Math.round((1 - y / height) * 360));
     }

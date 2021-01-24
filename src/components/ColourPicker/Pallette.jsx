@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
+import {getClickCoords} from "../../util/canvas";
+
 export default function Palette({ width, height, hue, onColourUpdate }) {
     const ref = useRef(null);
 
@@ -24,9 +26,7 @@ export default function Palette({ width, height, hue, onColourUpdate }) {
     };
     const selectColour = event => {
         const canvas = ref.current;
-        const boundingBox = canvas.getBoundingClientRect();
-        const x = event.clientX - boundingBox.left;
-        const y = event.clientY - boundingBox.top;
+        const { x, y }  = getClickCoords(canvas, event)
         const pixel = canvas.getContext('2d').getImageData(x, y, 1, 1).data;
 
         onColourUpdate(pixel);
