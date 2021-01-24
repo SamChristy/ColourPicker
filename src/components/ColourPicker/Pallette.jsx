@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 
 import {getClickCoords, getPixelAsRGBHex} from '../../util/canvas';
 
@@ -31,7 +31,7 @@ export default function Palette({ width, height, hue, onColourUpdate }) {
         onColourUpdate(getPixelAsRGBHex(canvas, getClickCoords(canvas, event)));
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const canvasContext = ref.current.getContext('2d')
 
         renderPalette(canvasContext, width, height, hue);

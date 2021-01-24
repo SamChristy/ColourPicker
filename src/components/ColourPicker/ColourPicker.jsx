@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 import Palette from './Pallette';
 import HueScale from './HueScale';
+import ColourSwatch from './ColourSwatch'
 
 export default function ColourPicker({width, height, onColourUpdate = () => {}, ...other}) {
-    const [hue, setHue] = useState(311);
-    const [colour, setColour] = useState('#');
+    const [colour, setColour] = useState('#ff0000');
+    const [hue, setHue] = useState(0);
     const dimensions = {
         palette: { width: Math.round(width * .9), height},
         hueScale: { width: Math.round(width * .1), height}
@@ -26,7 +27,7 @@ export default function ColourPicker({width, height, onColourUpdate = () => {}, 
             <HueScale width={dimensions.hueScale.width}
                       height={dimensions.hueScale.height}
                       onHueUpdate={onHueUpdateCallback} />
-            <input value={colour} readOnly disabled />
+            <ColourSwatch colour={colour} />
         </div>
     );
 }

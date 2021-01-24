@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 
 import { getClickCoords } from "../../util/canvas";
 
@@ -23,8 +23,9 @@ export default function HueScale({ width, height, onHueUpdate }) {
         onHueUpdate(hueValue);
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const canvasContext = ref.current.getContext('2d')
+
         renderHueScale(canvasContext, width, height);
     }, [width, height]);
 
