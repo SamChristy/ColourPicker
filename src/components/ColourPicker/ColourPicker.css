@@ -1,9 +1,30 @@
 .palette {
-    width: 90%;
-    height: 100%;
+    width: 88%;
+    height: 88%;
 }
 .hueScale {
     margin-left: 2%;
     width: 8%;
+    height: 88%;
+}
+.colourSwatch {
+    margin-top: 1%;
+    height: 8%;
+}
+.colourSwatch > div {
+    float: left;
+    width: 8%;
     height: 100%;
+}
+.colourSwatch > input {
+    height: 100%;
+    margin-left: 2%;
+    font-size: 12pt;
+    width: 6em;
+    text-align: center;
+    color: #373737;
+}
+.palette, .hueScale, .colourSwatch > div, .colourSwatch > input {
+    border: 1px #c2c2c2 solid;
+    border-radius: 7px;
 }

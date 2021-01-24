@@ -1,4 +1,7 @@
+h1 {
+    font-family: Helvetica, Calibri, Arial, sans-serif;
+}
 .colourPicker {
     width: 450px;
-    height: 400px;
+    height: 450px;
 }

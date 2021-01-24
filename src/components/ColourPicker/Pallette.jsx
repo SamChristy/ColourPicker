@@ -1,11 +1,9 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import {getClickCoords, getPixelAsRGBHex} from '../../util/canvas';
+import {getClickCoords, getPixelAsRGBHex, resetCanvas} from '../../util/canvas';
 
 const renderPalette = (ctx, hue, { width, height }) => {
-    ctx.canvas.width = width;
-    ctx.canvas.height = height;
-    ctx.clearRect(0, 0, width, height);
+    resetCanvas(ctx, { width, height });
 
     const saturationGradient = ctx.createLinearGradient(0, 0, width, 0);
     const brightnessGradient = ctx.createLinearGradient(0, 0, 0, height);

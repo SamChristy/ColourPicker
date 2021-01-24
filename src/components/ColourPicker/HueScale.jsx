@@ -1,11 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { getClickCoords } from "../../util/canvas";
+import {getClickCoords, resetCanvas} from "../../util/canvas";
 
 const renderHueScale = (ctx, { width, height }) => {
+    resetCanvas(ctx, { width, height });
+
     const hueGradient = ctx.createLinearGradient(0, 0, 0, height);
-    ctx.canvas.width = width;
-    ctx.canvas.height = height;
 
     for (let i = 0; i <= 360; i++) {
         hueGradient.addColorStop(1 - i / 360, `hsla(${i},100%,50%,1)`);

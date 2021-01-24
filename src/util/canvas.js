@@ -10,3 +10,9 @@ export const getPixelAsRGBHex = (canvas, {x, y}) => {
 
     return rgba.reduce((hex, component) =>  hex + component.toString(16).padStart(2, '0'), '#');
 };
+
+export const resetCanvas = (ctx, { width, height }) => {
+    ctx.canvas.width = width;
+    ctx.canvas.height = height;
+    ctx.clearRect(0, 0, width, height);
+}

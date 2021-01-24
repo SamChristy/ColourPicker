@@ -1,7 +1,7 @@
 export default function HueScale({ colour }) {
     return (
-        <div>
-            <div style={{ display: 'inline-block', background: colour, width: '20px', height: '20px' }}></div>
+        <div className={'colourSwatch'}>
+            <div style={{ background: colour }} />
             <input value={colour} readOnly disabled />
         </div>
     );
