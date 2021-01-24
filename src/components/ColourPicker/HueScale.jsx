@@ -14,12 +14,20 @@ export default function HueScale({ width, height, onHueUpdate }) {
         ctx.fillRect(width - width, 0, width, height);
     };
 
+    const inferHue = event => {
+        const canvas = ref.current;
+        const boundingBox = canvas.getBoundingClientRect();
+        const y = event.clientY - boundingBox.top;
+
+        onHueUpdate(Math.round((1 - y / height) * 360));
+    }
+
     useEffect(() => {
         const canvasContext = ref.current.getContext('2d')
         renderHueScale(canvasContext);
-    });
+    }, []);
 
     return (
-        <canvas ref={ref} width={width} height={height} />
+        <canvas ref={ref} width={width} height={height} onClickCapture={inferHue} />
     );
 }

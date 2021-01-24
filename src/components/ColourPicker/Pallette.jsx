@@ -4,6 +4,8 @@ export default function Palette({ width, height, hue, onColourUpdate }) {
     const ref = useRef(null);
 
     const renderPalette = ctx => {
+        ctx.clearRect(0, 0, width, height);
+
         const saturationGradient = ctx.createLinearGradient(0, 0, width, 0);
         const brightnessGradient = ctx.createLinearGradient(0, 0, 0, height);
 
@@ -20,7 +22,7 @@ export default function Palette({ width, height, hue, onColourUpdate }) {
         ctx.fillRect(0, 0, width, height);
         ctx.globalCompositeOperation = "source-over";
     };
-    const selectColour = (event) => {
+    const selectColour = event => {
         const canvas = ref.current;
         const boundingBox = canvas.getBoundingClientRect();
         const x = event.clientX - boundingBox.left;
@@ -33,7 +35,7 @@ export default function Palette({ width, height, hue, onColourUpdate }) {
     useEffect(() => {
         const canvasContext = ref.current.getContext('2d')
         renderPalette(canvasContext);
-    });
+    }, [renderPalette, hue]);
 
     return (
         <canvas ref={ref} width={width} height={height} onClickCapture={selectColour} />
