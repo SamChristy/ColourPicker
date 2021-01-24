@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export default function HueScale({ width, height }) {
+export default function HueScale({ width, height, onHueUpdate }) {
     const ref = useRef(null);
 
     const renderHueScale = ctx => {

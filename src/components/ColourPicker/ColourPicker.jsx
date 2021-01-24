@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import Palette from './Pallette';
 import HueScale from "./HueScale";
 
-export default function ColourPicker({width, height, callback, ...other}) {
+export default function ColourPicker({width, height, onColourUpdate, ...other}) {
     const [hue, setHue] = useState(311);
     const dimensions = {
         palette: { width: Math.round(width * .9), height},
         hueScale: { width: Math.round(width * .1), height}
     };
 
-    const onColourUpdateCallback = colour => callback(colour);
+    const onColourUpdateCallback = colour => onColourUpdate(colour);
     const onHueUpdateCallback = hue => setHue(hue);
 
     return (

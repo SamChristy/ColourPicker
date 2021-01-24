@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export default function Palette({ width, height, hue }) {
+export default function Palette({ width, height, hue, onColourUpdate }) {
     const ref = useRef(null);
 
     const renderPalette = ctx => {
@@ -20,6 +20,15 @@ export default function Palette({ width, height, hue }) {
         ctx.fillRect(0, 0, width, height);
         ctx.globalCompositeOperation = "source-over";
     };
+    const selectColour = (event) => {
+        const canvas = ref.current;
+        const boundingBox = canvas.getBoundingClientRect();
+        const x = event.clientX - boundingBox.left;
+        const y = event.clientY - boundingBox.top;
+        const pixel = canvas.getContext('2d').getImageData(x, y, 1, 1).data;
+
+        onColourUpdate(pixel);
+    }
 
     useEffect(() => {
         const canvasContext = ref.current.getContext('2d')
@@ -27,6 +36,6 @@ export default function Palette({ width, height, hue }) {
     });
 
     return (
-        <canvas ref={ref} width={width} height={height} />
+        <canvas ref={ref} width={width} height={height} onClickCapture={selectColour} />
     );
 }
