@@ -1,8 +1,10 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import {getClickCoords, getPixelAsRGBHex} from '../../util/canvas';
 
-const renderPalette = (ctx, width, height, hue) => {
+const renderPalette = (ctx, hue, { width, height }) => {
+    ctx.canvas.width = width;
+    ctx.canvas.height = height;
     ctx.clearRect(0, 0, width, height);
 
     const saturationGradient = ctx.createLinearGradient(0, 0, width, 0);
@@ -22,7 +24,8 @@ const renderPalette = (ctx, width, height, hue) => {
     ctx.globalCompositeOperation = "source-over";
 };
 
-export default function Palette({ width, height, hue, onColourUpdate }) {
+export default function Palette({ hue, onColourUpdate }) {
+    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const ref = useRef(null);
 
     const selectColour = event => {
@@ -31,13 +34,11 @@ export default function Palette({ width, height, hue, onColourUpdate }) {
         onColourUpdate(getPixelAsRGBHex(canvas, getClickCoords(canvas, event)));
     }
 
-    useLayoutEffect(() => {
-        const canvasContext = ref.current.getContext('2d')
-
-        renderPalette(canvasContext, width, height, hue);
-    }, [width, height, hue]);
+    useLayoutEffect(() => ref.current
+        && setDimensions({ width: ref.current.offsetWidth, height: ref.current.offsetHeight }), []);
+    useEffect(() => ref.current && renderPalette(ref.current.getContext('2d'), hue, dimensions), [hue, dimensions]);
 
     return (
-        <canvas ref={ref} width={width} height={height} onClickCapture={selectColour} />
+        <canvas ref={ref} className={'palette'} onClickCapture={selectColour} />
     );
 }

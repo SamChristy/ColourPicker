@@ -1,35 +1,36 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { getClickCoords } from "../../util/canvas";
 
-const renderHueScale = (ctx, width, height) => {
+const renderHueScale = (ctx, { width, height }) => {
     const hueGradient = ctx.createLinearGradient(0, 0, 0, height);
+    ctx.canvas.width = width;
+    ctx.canvas.height = height;
 
     for (let i = 0; i <= 360; i++) {
         hueGradient.addColorStop(1 - i / 360, `hsla(${i},100%,50%,1)`);
     }
 
     ctx.fillStyle = hueGradient;
-    ctx.fillRect(width - width, 0, width, height);
+    ctx.fillRect(0, 0, width, height);
 };
 
-export default function HueScale({ width, height, onHueUpdate }) {
+export default function HueScale({ onHueUpdate }) {
+    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const ref = useRef(null);
 
     const inferHue = event => {
         const { y } = getClickCoords(ref.current, event)
-        const hueValue = Math.round((1 - y / height) * 360);
+        const hueValue = Math.round((1 - y / dimensions.height) * 360);
 
         onHueUpdate(hueValue);
     }
 
-    useLayoutEffect(() => {
-        const canvasContext = ref.current.getContext('2d')
-
-        renderHueScale(canvasContext, width, height);
-    }, [width, height]);
+    useLayoutEffect(() => ref.current
+        && setDimensions({ width: ref.current.offsetWidth, height: ref.current.offsetHeight }), []);
+    useEffect(() => ref.current && renderHueScale(ref.current.getContext('2d'), dimensions), [dimensions]);
 
     return (
-        <canvas ref={ref} width={width} height={height} onClickCapture={inferHue} />
+        <canvas ref={ref} className={'hueScale'} onClickCapture={inferHue} />
     );
 }

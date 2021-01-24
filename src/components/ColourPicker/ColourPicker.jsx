@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import Palette from './Pallette';
 import HueScale from './HueScale';
 import ColourSwatch from './ColourSwatch'
+import './ColourPicker.css';
 
-export default function ColourPicker({width, height, onColourUpdate = () => {}, ...other}) {
+export default function ColourPicker({onColourUpdate = () => {}, ...props}) {
     const [colour, setColour] = useState('#ff0000');
     const [hue, setHue] = useState(0);
-    const dimensions = {
-        palette: { width: Math.round(width * .9), height},
-        hueScale: { width: Math.round(width * .1), height}
-    };
+    const ref = useRef(null);
 
     const onColourUpdateCallback = (colour) => {
         onColourUpdate(colour);
@@ -19,14 +17,9 @@ export default function ColourPicker({width, height, onColourUpdate = () => {}, 
     const onHueUpdateCallback = hue => setHue(hue);
 
     return (
-        <div {...other}>
-            <Palette width={dimensions.palette.width}
-                     height={dimensions.palette.height}
-                     hue={hue}
-                     onColourUpdate={onColourUpdateCallback} />
-            <HueScale width={dimensions.hueScale.width}
-                      height={dimensions.hueScale.height}
-                      onHueUpdate={onHueUpdateCallback} />
+        <div ref={ref} {...props}>
+            <Palette onColourUpdate={onColourUpdateCallback} hue={hue} />
+            <HueScale onHueUpdate={onHueUpdateCallback} />
             <ColourSwatch colour={colour} />
         </div>
     );
