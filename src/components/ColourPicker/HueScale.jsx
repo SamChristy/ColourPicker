@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import {getClickCoords, resetCanvas} from "../../util/canvas";
+import Marker from "./Marker";
+import { getClickCoords, resetCanvas } from "../../util/canvas";
 
 const renderHueScale = (ctx, { width, height }) => {
     resetCanvas(ctx, { width, height });
@@ -17,12 +18,14 @@ const renderHueScale = (ctx, { width, height }) => {
 
 export default function HueScale({ onHueUpdate }) {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const [markerPosition, setMarkerPosition] = useState({ y: 0 });
     const ref = useRef(null);
 
     const inferHue = event => {
         const { y } = getClickCoords(ref.current, event)
         const hueValue = Math.round((1 - y / dimensions.height) * 360);
 
+        setMarkerPosition({ y });
         onHueUpdate(hueValue);
     }
 
@@ -31,6 +34,9 @@ export default function HueScale({ onHueUpdate }) {
     useEffect(() => ref.current && renderHueScale(ref.current.getContext('2d'), dimensions), [dimensions]);
 
     return (
-        <canvas ref={ref} className={'hueScale'} onClickCapture={inferHue} />
+        <div className={'hueScale'}>
+            <canvas ref={ref} onClickCapture={inferHue} />
+            <Marker position={markerPosition} />
+        </div>
     );
 }

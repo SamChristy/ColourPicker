@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import {getClickCoords, getPixelAsRGBHex, resetCanvas} from '../../util/canvas';
+import Marker from "./Marker";
+import { getClickCoords, getPixelAsRGBHex, resetCanvas } from '../../util/canvas';
 
 const renderPalette = (ctx, hue, { width, height }) => {
     resetCanvas(ctx, { width, height });
@@ -24,12 +25,15 @@ const renderPalette = (ctx, hue, { width, height }) => {
 
 export default function Palette({ hue, onColourUpdate }) {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const [markerPosition, setMarkerPosition] = useState({});
     const ref = useRef(null);
 
     const selectColour = event => {
         const canvas = ref.current;
+        const coords = getClickCoords(canvas, event);
 
-        onColourUpdate(getPixelAsRGBHex(canvas, getClickCoords(canvas, event)));
+        setMarkerPosition(coords);
+        onColourUpdate(getPixelAsRGBHex(canvas, coords));
     }
 
     useLayoutEffect(() => ref.current
@@ -37,6 +41,10 @@ export default function Palette({ hue, onColourUpdate }) {
     useEffect(() => ref.current && renderPalette(ref.current.getContext('2d'), hue, dimensions), [hue, dimensions]);
 
     return (
-        <canvas ref={ref} className={'palette'} onClickCapture={selectColour} />
+        <div className={'palette'}>
+            <canvas ref={ref} onClickCapture={selectColour} />
+            <Marker position={markerPosition} />
+        </div>
+
     );
 }

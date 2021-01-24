@@ -1,5 +1,5 @@
-export const getClickCoords = (canvas, clickEvent) => {
-    const boundingBox = canvas.getBoundingClientRect();
+export const getClickCoords = (element, clickEvent) => {
+    const boundingBox = element.getBoundingClientRect();
 
     return { x: clickEvent.clientX - boundingBox.left, y: clickEvent.clientY - boundingBox.top }
 };
