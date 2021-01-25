@@ -24,15 +24,19 @@ const drawCanvas = (ctx, hue) => {
 
 export default function Palette({ hue, onColourUpdate }) {
     const [markerPosition, setMarkerPosition] = useState({ x: 0, y: 0 });
-    const canvasRef = useRef(null);
     const last = useRef({ hue, markerPosition });
+    const canvasRef = useRef(null);
 
-    const selectColour = event => {
+    const moveMarker = position => {
+        last.current.markerPosition = position;
+        setMarkerPosition(position);
+    }
+    const onClick = event => {
         const canvas = canvasRef.current;
         const coords = getClickCoords(canvas, event);
         const colour = getPixelAsRGBHex(canvas, coords);
 
-        setMarkerPosition(coords);
+        moveMarker(coords);
         onColourUpdate(colour);
     }
 
@@ -49,7 +53,7 @@ export default function Palette({ hue, onColourUpdate }) {
 
     return (
         <div className={'palette'}>
-            <canvas ref={canvasRef} onClickCapture={selectColour} />
+            <canvas ref={canvasRef} onClick={onClick} />
             <Marker position={markerPosition} />
         </div>
     );
