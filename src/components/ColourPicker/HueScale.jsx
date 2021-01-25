@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
-
-import Marker from "./Marker";
 import { getClickCoords, getDimensions } from "../../util/canvas";
+import Marker from "./Marker";
 
 const drawCanvas = ctx => {
     const { width, height } = getDimensions(ctx.canvas);
@@ -27,7 +26,7 @@ export default function HueScale({ onHueUpdate }) {
         onHueUpdate(hueValue);
     }
 
-    useLayoutEffect(() => drawCanvas(canvasRef.current.getContext('2d'), []));
+    useLayoutEffect(() => drawCanvas(canvasRef.current.getContext('2d')), []);
 
     return (
         <div className={'hueScale'}>

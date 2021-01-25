@@ -1,9 +1,9 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
-
-import Marker from "./Marker";
 import { getClickCoords, getDimensions, getPixelAsRGBHex } from '../../util/canvas';
+import Marker from "./Marker";
 
 const drawCanvas = (ctx, hue) => {
+    // TODO: See if <svg> or even <div> elements are faster... 🧐
     const { width, height } = getDimensions(ctx.canvas);
     const saturationGradient = ctx.createLinearGradient(0, 0, width, 0);
     const brightnessGradient = ctx.createLinearGradient(0, 0, 0, height);
@@ -25,6 +25,7 @@ const drawCanvas = (ctx, hue) => {
 export default function Palette({ hue, onColourUpdate }) {
     const [markerPosition, setMarkerPosition] = useState({ x: 0, y: 0 });
     const canvasRef = useRef(null);
+    const last = useRef({ hue, markerPosition });
 
     const selectColour = event => {
         const canvas = canvasRef.current;
@@ -38,17 +39,18 @@ export default function Palette({ hue, onColourUpdate }) {
     useLayoutEffect(() => {
         drawCanvas(canvasRef.current.getContext('2d'), hue);
 
-        if (hue !== 0) {
-            // The hue has been changed, so we need to update the selected colour.
-            onColourUpdate(getPixelAsRGBHex(canvasRef.current, markerPosition));
+        if (hue !== last.current.hue) {
+            // The hue has been changed, so we need to update the colour.
+            onColourUpdate(getPixelAsRGBHex(canvasRef.current, last.current.markerPosition));
         }
-    }, [markerPosition, hue, onColourUpdate]);
+
+        last.current.hue = hue;
+    }, [last, hue, onColourUpdate]);
 
     return (
         <div className={'palette'}>
             <canvas ref={canvasRef} onClickCapture={selectColour} />
             <Marker position={markerPosition} />
         </div>
-
     );
 }
