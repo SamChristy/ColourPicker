@@ -1,11 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import Marker from "./Marker";
-import { getClickCoords, getPixelAsRGBHex, resetCanvas } from '../../util/canvas';
+import { getClickCoords, getDimensions, getPixelAsRGBHex } from '../../util/canvas';
 
-const renderPalette = (ctx, hue, { width, height }) => {
-    resetCanvas(ctx, { width, height });
-
+const drawCanvas = (ctx, hue) => {
+    const { width, height } = getDimensions(ctx.canvas);
     const saturationGradient = ctx.createLinearGradient(0, 0, width, 0);
     const brightnessGradient = ctx.createLinearGradient(0, 0, 0, height);
 
@@ -15,47 +14,39 @@ const renderPalette = (ctx, hue, { width, height }) => {
     brightnessGradient.addColorStop(1, "black");
 
     // Let the browser/GPU do the work...
-    ctx.fillStyle = saturationGradient;
+    ctx.fillStyle = brightnessGradient;
     ctx.fillRect(0, 0, width, height);
     ctx.globalCompositeOperation = "multiply";
-    ctx.fillStyle = brightnessGradient;
+    ctx.fillStyle = saturationGradient;
     ctx.fillRect(0, 0, width, height);
     ctx.globalCompositeOperation = "source-over";
 };
 
 export default function Palette({ hue, onColourUpdate }) {
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-    const [markerPosition, setMarkerPosition] = useState({ x: 0, y: 0});
-    const ref = useRef(null);
+    const [markerPosition, setMarkerPosition] = useState({ x: 0, y: 0 });
+    const canvasRef = useRef(null);
 
     const selectColour = event => {
-        const canvas = ref.current;
+        const canvas = canvasRef.current;
         const coords = getClickCoords(canvas, event);
+        const colour = getPixelAsRGBHex(canvas, coords);
 
         setMarkerPosition(coords);
-        onColourUpdate(getPixelAsRGBHex(canvas, coords));
+        onColourUpdate(colour);
     }
 
-    useLayoutEffect(() => ref.current
-        && setDimensions({ width: ref.current.offsetWidth, height: ref.current.offsetHeight }), []);
-    useEffect(() => {
-        if (!ref.current) return;
-
-        const canvas = ref.current;
-
-        renderPalette(canvas.getContext('2d'), hue, dimensions);
+    useLayoutEffect(() => {
+        drawCanvas(canvasRef.current.getContext('2d'), hue);
 
         if (hue !== 0) {
             // The hue has been changed, so we need to update the selected colour.
-            const colour = getPixelAsRGBHex(canvas, markerPosition);
-            onColourUpdate(colour);
+            onColourUpdate(getPixelAsRGBHex(canvasRef.current, markerPosition));
         }
-
-    }, [hue, dimensions, onColourUpdate, markerPosition]);
+    }, [markerPosition, hue, onColourUpdate]);
 
     return (
         <div className={'palette'}>
-            <canvas ref={ref} onClickCapture={selectColour} />
+            <canvas ref={canvasRef} onClickCapture={selectColour} />
             <Marker position={markerPosition} />
         </div>
 

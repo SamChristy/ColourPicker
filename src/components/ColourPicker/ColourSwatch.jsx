@@ -1,4 +1,4 @@
-export default function HueScale({ colour }) {
+export default function ColourSwatch({ colour }) {
     return (
         <div className={'colourSwatch'}>
             <div style={{ background: colour }} />

@@ -1,11 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import Marker from "./Marker";
-import { getClickCoords, resetCanvas } from "../../util/canvas";
+import { getClickCoords, getDimensions } from "../../util/canvas";
 
-const renderHueScale = (ctx, { width, height }) => {
-    resetCanvas(ctx, { width, height });
-
+const drawCanvas = ctx => {
+    const { width, height } = getDimensions(ctx.canvas);
     const hueGradient = ctx.createLinearGradient(0, 0, 0, height);
 
     for (let i = 0; i <= 360; i++) {
@@ -17,25 +16,22 @@ const renderHueScale = (ctx, { width, height }) => {
 };
 
 export default function HueScale({ onHueUpdate }) {
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [markerPosition, setMarkerPosition] = useState({ y: 0 });
-    const ref = useRef(null);
+    const canvasRef = useRef(null);
 
     const inferHue = event => {
-        const { y } = getClickCoords(ref.current, event)
-        const hueValue = Math.round((1 - y / dimensions.height) * 360);
+        const { y } = getClickCoords(canvasRef.current, event)
+        const hueValue = Math.round((1 - y / canvasRef.current.height) * 360);
 
         setMarkerPosition({ y });
         onHueUpdate(hueValue);
     }
 
-    useLayoutEffect(() => ref.current
-        && setDimensions({ width: ref.current.offsetWidth, height: ref.current.offsetHeight }), []);
-    useEffect(() => ref.current && renderHueScale(ref.current.getContext('2d'), dimensions), [dimensions]);
+    useLayoutEffect(() => drawCanvas(canvasRef.current.getContext('2d'), []));
 
     return (
         <div className={'hueScale'}>
-            <canvas ref={ref} onClickCapture={inferHue} />
+            <canvas ref={canvasRef} onClickCapture={inferHue} />
             <Marker position={markerPosition} />
         </div>
     );
