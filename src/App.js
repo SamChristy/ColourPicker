@@ -1,3 +1,4 @@
+import React from 'react';
 import ColourPicker from "./components/ColourPicker/ColourPicker";
 import './App.css';
 

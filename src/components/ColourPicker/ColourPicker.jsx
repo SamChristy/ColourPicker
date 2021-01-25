@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Palette from './Pallette';
+import Palette from './Palette';
 import HueScale from './HueScale';
 import ColourSwatch from './ColourSwatch'
 import './ColourPicker.css';
