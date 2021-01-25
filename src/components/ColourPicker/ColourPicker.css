@@ -1,5 +1,6 @@
 .palette, .hueScale {
     display: inline-block;
+    overflow: hidden;
 }
 .palette {
     position: relative;
@@ -37,7 +38,7 @@
     text-align: center;
     color: #373737;
 }
-.palette > canvas, .hueScale > canvas, .colourSwatch > div, .colourSwatch > input {
+.palette, .hueScale, .colourSwatch > div, .colourSwatch > input {
     border: 1px #c2c2c2 solid;
     border-radius: 7px;
 }
@@ -45,11 +46,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    margin: -10px 2px 2px -10px;
-    width: 16px;
-    height: 16px;
+    margin: -11px 0 0 -11px;
+    width: 18px;
+    height: 18px;
     border: 3px white solid;
     border-radius: 100%;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.6);
 }
 .hueScale .marker {
     left: 50%;

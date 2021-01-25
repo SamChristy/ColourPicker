@@ -5,6 +5,7 @@ export const getClickCoords = (element, clickEvent) => {
 };
 
 export const getPixelAsRGBHex = (canvas, { x, y }) => {
+    // TODO: Refactor this to infer saturation & lightness values from position.
     const pixel = canvas.getContext('2d').getImageData(x, y, 1, 1).data;
     const rgba = pixel.slice(0, 3);
 
