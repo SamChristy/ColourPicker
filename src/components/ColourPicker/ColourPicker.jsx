@@ -2,22 +2,33 @@ import React, { useState } from 'react';
 import Palette from './Palette';
 import HueScale from './HueScale';
 import ColourSwatch from './ColourSwatch'
+import { rgbaToHex } from "../../util/canvas";
 import './ColourPicker.css';
 
-export default function ColourPicker({ onColourUpdate = () => {}, ...props }) {
+/**
+ * Renders a CSS colour picker [see example]{@link https://samchristy.github.io/ColourPicker/}
+ *
+ * @param {?function} onColourUpdate Optional callback that returns the colour as a CSS hex string.
+ * @param {...*} props Properties for the component's <div> wrapper.
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export default function ColourPicker({ onColourUpdate, ...props }) {
     const [colour, setColour] = useState('');
     const [hue, setHue] = useState(0);
 
     const onColourUpdateCallback = colour => {
-        onColourUpdate(colour);
-        setColour(colour);
+        const hexString = rgbaToHex(colour);
+        if (typeof onColourUpdate === "function") {
+            onColourUpdate(hexString);
+        }
+        setColour(hexString);
     }
-    const onHueUpdateCallback = hue => setHue(hue);
 
     return (
         <div {...props}>
             <Palette onColourUpdate={onColourUpdateCallback} hue={hue} />
-            <HueScale onHueUpdate={onHueUpdateCallback} />
+            <HueScale onHueUpdate={hue => setHue(hue)} />
             <ColourSwatch colour={colour} />
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import { getClickCoords, getDimensions, getPixelAsRGBHex } from '../../util/canvas';
+import { getClickCoords, getDimensions, getPixel } from '../../util/canvas';
 import Marker from "./Marker";
 
 const drawCanvas = (ctx, hue) => {
@@ -34,7 +34,7 @@ export default function Palette({ hue, onColourUpdate }) {
     const onClick = event => {
         const canvas = canvasRef.current;
         const coords = getClickCoords(canvas, event);
-        const colour = getPixelAsRGBHex(canvas, coords);
+        const colour = getPixel(canvas, coords);
 
         moveMarker(coords);
         onColourUpdate(colour);
@@ -45,7 +45,7 @@ export default function Palette({ hue, onColourUpdate }) {
 
         if (hue !== last.current.hue) {
             // The hue has been changed, so we need to update the colour.
-            onColourUpdate(getPixelAsRGBHex(canvasRef.current, last.current.markerPosition));
+            onColourUpdate(getPixel(canvasRef.current, last.current.markerPosition));
         }
 
         last.current.hue = hue;
