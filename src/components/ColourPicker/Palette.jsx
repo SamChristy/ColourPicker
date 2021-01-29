@@ -24,19 +24,15 @@ const drawCanvas = (ctx, hue) => {
 
 export default function Palette({ hue, onColourUpdate }) {
     const [markerPosition, setMarkerPosition] = useState({ x: 0, y: 0 });
-    const last = useRef({ hue, markerPosition });
+    const last = useRef({ hue });
     const canvasRef = useRef(null);
 
-    const moveMarker = position => {
-        last.current.markerPosition = position;
-        setMarkerPosition(position);
-    }
     const onClick = event => {
         const canvas = canvasRef.current;
         const coords = getClickCoords(canvas, event);
         const colour = getPixel(canvas, coords);
 
-        moveMarker(coords);
+        setMarkerPosition(coords);
         onColourUpdate(colour);
     }
 
@@ -45,7 +41,7 @@ export default function Palette({ hue, onColourUpdate }) {
 
         if (hue !== last.current.hue) {
             // The hue has been changed, so we need to update the colour.
-            onColourUpdate(getPixel(canvasRef.current, last.current.markerPosition));
+            onColourUpdate(getPixel(canvasRef.current, markerPosition));
         }
 
         last.current.hue = hue;
