@@ -1,3 +1,4 @@
+/* TODO: Use SCSS to clean up stylesheets */
 .palette, .hueScale {
     display: inline-block;
     overflow: hidden;
@@ -46,12 +47,14 @@
     position: absolute;
     top: 0;
     left: 0;
-    margin: -11px 0 0 -11px;
-    width: 18px;
-    height: 18px;
-    border: 3px white solid;
+    margin: -0.65em 0 0 -0.65em;
+    width: 1em;
+    height: 1em;
+    border: 0.13em white solid;
     border-radius: 100%;
-    box-shadow: 0 0 2px 0 rgba(0,0,0,0.6);
+    box-shadow: 0 0 0.1em 0 rgba(0,0,0,0.6);
+    /* Use this to set marker size */
+    font-size: 1em;
 }
 .hueScale .marker {
     left: 50%;
