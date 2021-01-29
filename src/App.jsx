@@ -1,5 +1,5 @@
 import React from 'react';
-import ColourPicker from "./components/ColourPicker/ColourPicker";
+import { ColourPicker } from "./components";
 import './App.css';
 
 export default function App() {
