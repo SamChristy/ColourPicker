@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getClickCoords, getDimensions } from "../../util/canvas";
 import Marker from "./Marker";
 
@@ -6,8 +6,9 @@ const drawCanvas = ctx => {
     const { width, height } = getDimensions(ctx.canvas);
     const hueGradient = ctx.createLinearGradient(0, 0, 0, height);
 
-    for (let i = 0; i <= 360; i++) {
-        hueGradient.addColorStop(1 - i / 360, `hsla(${i},100%,50%,1)`);
+    // No visible difference between 10 and 360 color stops, so may as well save some time...
+    for (let i = 0; i <= 36; i++) {
+        hueGradient.addColorStop(1 - i / 36, `hsla(${i*10},100%,50%,1)`);
     }
 
     ctx.fillStyle = hueGradient;
@@ -26,7 +27,7 @@ export default function HueScale({ onHueUpdate }) {
         onHueUpdate(hueValue);
     }
 
-    useLayoutEffect(() => drawCanvas(canvasRef.current.getContext('2d')), []);
+    useEffect(() => drawCanvas(canvasRef.current.getContext('2d')), []);
 
     return (
         <div className={'hueScale'}>

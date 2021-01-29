@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getClickCoords, getDimensions, getPixel } from '../../util/canvas';
 import Marker from "./Marker";
 
@@ -36,7 +36,7 @@ export default function Palette({ hue, onColourUpdate }) {
         onColourUpdate(colour);
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         drawCanvas(canvasRef.current.getContext('2d'), hue);
 
         if (hue !== last.current.hue) {
@@ -45,7 +45,7 @@ export default function Palette({ hue, onColourUpdate }) {
         }
 
         last.current.hue = hue;
-    }, [last, hue, onColourUpdate]);
+    }, [last, markerPosition, hue, onColourUpdate]);
 
     return (
         <div className={'palette'}>
