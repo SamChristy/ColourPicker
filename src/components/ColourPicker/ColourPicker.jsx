@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
 import Palette from './Palette';
 import HueScale from './HueScale';
 import ColourSwatch from './ColourSwatch'
@@ -13,15 +14,14 @@ import './ColourPicker.css';
  * @returns {JSX.Element}
  * @constructor
  */
-export default function ColourPicker({ onColourUpdate, ...props }) {
+export default function ColourPicker({ onColourUpdate = () => {}, ...props }) {
     const [colour, setColour] = useState('');
     const [hue, setHue] = useState(0);
 
     const onColourUpdateCallback = colour => {
         const hexString = rgbaToHex(colour);
-        if (typeof onColourUpdate === "function") {
-            onColourUpdate(hexString);
-        }
+
+        onColourUpdate(hexString);
         setColour(hexString);
     }
 
@@ -33,3 +33,7 @@ export default function ColourPicker({ onColourUpdate, ...props }) {
         </div>
     );
 }
+
+ColourPicker.propTypes = {
+    onColourUpdate: PropTypes.func,
+};

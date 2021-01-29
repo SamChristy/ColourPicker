@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from "prop-types";
+
 export default function ColourSwatch({ colour }) {
     return (
         <div className={'colourSwatch'}>
@@ -6,3 +9,10 @@ export default function ColourSwatch({ colour }) {
         </div>
     );
 }
+
+ColourSwatch.propTypes = {
+    position: PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number.isRequired
+    }),
+};

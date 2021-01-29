@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from "prop-types";
 import { getClickCoords, getDimensions } from "../../util/canvas";
 import Marker from "./Marker";
 
@@ -36,3 +37,7 @@ export default function HueScale({ onHueUpdate }) {
         </div>
     );
 }
+
+HueScale.propTypes = {
+    onHueUpdate: PropTypes.func.isRequired,
+};

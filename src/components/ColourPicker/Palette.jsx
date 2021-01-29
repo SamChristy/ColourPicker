@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { getClickCoords, getDimensions, getPixel } from '../../util/canvas';
 import Marker from "./Marker";
 
@@ -54,3 +55,8 @@ export default function Palette({ hue, onColourUpdate }) {
         </div>
     );
 }
+
+Palette.propTypes = {
+    hue: PropTypes.number.isRequired,
+    onColourUpdate: PropTypes.func.isRequired,
+};
