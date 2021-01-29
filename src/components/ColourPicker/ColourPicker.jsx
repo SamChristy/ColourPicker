@@ -4,7 +4,7 @@ import Palette from './Palette';
 import HueScale from './HueScale';
 import ColourSwatch from './ColourSwatch'
 import { rgbaToHex } from "../../util/canvas";
-import './ColourPicker.css';
+import './ColourPicker.scss';
 
 /**
  * Renders a CSS colour picker [see example]{@link https://samchristy.github.io/ColourPicker/}

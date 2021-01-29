@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 
 export default function Marker({ position: { x, y } }) {
-    console.log({ x, y });
     const style = {
         ...(x !== 'undefined' ? { left: `${Math.round(x)}px` } : {}), top: `${Math.round(y)}px`
     };
