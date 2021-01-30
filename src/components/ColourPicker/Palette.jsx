@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getClickCoords, getDimensions, getPixel } from '../../util/canvas';
 import Marker from "./Marker";
+import styles from "./Palette.module.scss";
 
 const drawCanvas = (ctx, hue) => {
     // TODO: See if <svg> or even <div> elements are faster... 🧐
@@ -49,7 +50,7 @@ export default function Palette({ hue, onColourUpdate }) {
     }, [last, markerPosition, hue, onColourUpdate]);
 
     return (
-        <div className={'palette'}>
+        <div className={`${styles.palette} palette`}>
             <canvas ref={canvasRef} onClick={onClick} />
             <Marker position={markerPosition} />
         </div>

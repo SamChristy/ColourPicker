@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import styles from './Marker.module.scss'
 
 export default function Marker({ position: { x, y } }) {
     const style = {
@@ -7,7 +8,7 @@ export default function Marker({ position: { x, y } }) {
     };
 
     return (
-        <div className={'marker'} style={style} />
+        <div className={`${styles.marker} marker`} style={style} />
     );
 }
 

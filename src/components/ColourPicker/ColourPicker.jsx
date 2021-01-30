@@ -4,7 +4,7 @@ import Palette from './Palette';
 import HueScale from './HueScale';
 import ColourSwatch from './ColourSwatch'
 import { rgbaToHex } from "../../util/canvas";
-import './ColourPicker.scss';
+import styles from './ColourPicker.module.scss';
 
 /**
  * Renders a CSS colour picker [see example]{@link https://samchristy.github.io/ColourPicker/}
@@ -26,7 +26,7 @@ export default function ColourPicker({ onColourUpdate = () => {}, ...props }) {
     }
 
     return (
-        <div {...props}>
+        <div {...props} className={`${styles.colourPicker} colourPicker ${props.className}`} >
             <Palette onColourUpdate={onColourUpdateCallback} hue={hue} />
             <HueScale onHueUpdate={hue => setHue(hue)} />
             <ColourSwatch colour={colour} />

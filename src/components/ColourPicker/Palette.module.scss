@@ -1,0 +1,12 @@
+@import 'ColourPicker.module';
+
+.palette {
+  @include container;
+  @include rounded;
+  width: 100% - $componentThickness - 2 * $componentPadding;
+  height: 100% - $componentThickness - 2 * $componentPadding;
+  & > canvas {
+    width: 100%;
+    height: 100%;
+  }
+}

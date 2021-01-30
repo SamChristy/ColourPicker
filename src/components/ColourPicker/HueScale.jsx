@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from "prop-types";
 import { getClickCoords, getDimensions } from "../../util/canvas";
 import Marker from "./Marker";
+import styles from "./HueScale.module.scss";
 
 const drawCanvas = ctx => {
     const { width, height } = getDimensions(ctx.canvas);
@@ -31,7 +32,7 @@ export default function HueScale({ onHueUpdate }) {
     useEffect(() => drawCanvas(canvasRef.current.getContext('2d')), []);
 
     return (
-        <div className={'hueScale'}>
+        <div className={`${styles.hueScale} hueScale`}>
             <canvas ref={canvasRef} onClickCapture={inferHue} />
             <Marker position={markerPosition} />
         </div>

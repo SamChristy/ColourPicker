@@ -1,0 +1,21 @@
+@import 'ColourPicker.module';
+
+.colourSwatch {
+  margin-top: $componentPadding / 2;
+  height: $componentThickness;
+  & > * {
+    @include rounded;
+    height: 100%;
+  }
+  & > div {
+    width: $componentThickness;
+    float: left;
+  }
+  & > input {
+    color: $darkGrey;
+    margin-left: $componentPadding;
+    font-size: 1rem;
+    width: 6em;
+    text-align: center;
+  }
+}
