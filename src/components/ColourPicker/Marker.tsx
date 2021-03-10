@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes, {InferProps} from "prop-types";
 import styles from './Marker.module.scss'
 
-export default function Marker({ position: { x, y } }) {
+export default function Marker({ position: { x, y } }: InferProps<typeof Marker.propTypes>) {
     const style = {
-        ...(x !== 'undefined' ? { left: `${Math.round(x)}px` } : {}), top: `${Math.round(y)}px`
+        ...(x !== undefined && x !== null ? { left: `${Math.round(x)}px` } : {}), top: `${Math.round(y)}px`
     };
 
     return (
@@ -16,5 +16,5 @@ Marker.propTypes = {
     position: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number.isRequired
-    }),
+    }).isRequired,
 };

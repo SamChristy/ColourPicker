@@ -6,7 +6,7 @@ export default function App() {
   return (
       <>
         <h1>ColourPicker Demo</h1>
-        <ColourPicker />
+        <ColourPicker onColourUpdate={colour => console.log(`colour: ${colour}`)} />
         <p>🎨Created by Sam Christy - <a href="https://github.com/SamChristy/ColourPicker">see code on GitHub</a></p>
       </>
   );

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState, MouseEvent } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
 import { getClickCoords, getDimensions, getPixel } from '../../util/canvas';
 import Marker from "./Marker";
 import styles from "./Palette.module.scss";
 
-const drawCanvas = (ctx, hue) => {
+const drawCanvas = (ctx: CanvasRenderingContext2D, hue: number) => {
     // TODO: See if <svg> or even <div> elements are faster... 🧐
     const { width, height } = getDimensions(ctx.canvas);
     const saturationGradient = ctx.createLinearGradient(0, 0, width, 0);
@@ -24,22 +24,27 @@ const drawCanvas = (ctx, hue) => {
     ctx.globalCompositeOperation = "source-over";
 };
 
-export default function Palette({ hue, onColourUpdate }) {
+export default function Palette({ hue, onColourUpdate }: InferProps<typeof Palette.propTypes>) {
     const [markerPosition, setMarkerPosition] = useState({ x: 0, y: 0 });
     const last = useRef({ hue });
-    const canvasRef = useRef(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    const onClick = event => {
-        const canvas = canvasRef.current;
-        const coords = getClickCoords(canvas, event);
-        const colour = getPixel(canvas, coords);
+    const onClick = (event: MouseEvent) => {
+        if (canvasRef.current === null) return;
+
+        const coords = getClickCoords(canvasRef.current, event);
+        const colour = getPixel(canvasRef.current, coords);
 
         setMarkerPosition(coords);
         onColourUpdate(colour);
     }
 
     useEffect(() => {
-        drawCanvas(canvasRef.current.getContext('2d'), hue);
+        if (canvasRef.current === null) return;
+        const ctx = canvasRef.current.getContext('2d');
+        if (ctx === null) return;
+
+        drawCanvas(ctx, hue);
 
         if (hue !== last.current.hue) {
             // The hue has been changed, so we need to update the colour.

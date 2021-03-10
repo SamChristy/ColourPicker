@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes, {InferProps} from "prop-types";
 import styles from "./ColourSwatch.module.scss"
 
-export default function ColourSwatch({ colour }) {
+export default function ColourSwatch({ colour }: InferProps<typeof ColourSwatch.propTypes>) {
     return (
         <div className={`${styles.colourSwatch} colourSwatch`}>
             <div style={{ background: colour }} />
@@ -12,8 +12,5 @@ export default function ColourSwatch({ colour }) {
 }
 
 ColourSwatch.propTypes = {
-    position: PropTypes.shape({
-        x: PropTypes.number,
-        y: PropTypes.number.isRequired
-    }),
+    colour: PropTypes.string.isRequired
 };

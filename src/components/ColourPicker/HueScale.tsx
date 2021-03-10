@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState, MouseEvent } from 'react';
+import PropTypes, { InferProps } from "prop-types";
 import { getClickCoords, getDimensions } from "../../util/canvas";
 import Marker from "./Marker";
 import styles from "./HueScale.module.scss";
 
-const drawCanvas = ctx => {
+const drawCanvas = (ctx: CanvasRenderingContext2D) => {
     const { width, height } = getDimensions(ctx.canvas);
     const hueGradient = ctx.createLinearGradient(0, 0, 0, height);
 
@@ -17,11 +17,13 @@ const drawCanvas = ctx => {
     ctx.fillRect(0, 0, width, height);
 };
 
-export default function HueScale({ onHueUpdate }) {
+export default function HueScale({ onHueUpdate }: InferProps<typeof HueScale.propTypes>) {
     const [markerPosition, setMarkerPosition] = useState({ y: 0 });
-    const canvasRef = useRef(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    const inferHue = event => {
+    const inferHue = (event: MouseEvent) => {
+        if (canvasRef.current === null) return;
+
         const { y } = getClickCoords(canvasRef.current, event)
         const hueValue = Math.round((1 - y / canvasRef.current.height) * 360);
 
@@ -29,11 +31,16 @@ export default function HueScale({ onHueUpdate }) {
         onHueUpdate(hueValue);
     }
 
-    useEffect(() => drawCanvas(canvasRef.current.getContext('2d')), []);
+    useEffect(() => {
+        const ctx = canvasRef?.current?.getContext('2d');
+        if (ctx) {
+            drawCanvas(ctx);
+        }
+    }, []);
 
     return (
         <div className={`${styles.hueScale} hueScale`}>
-            <canvas ref={canvasRef} onClickCapture={inferHue} />
+            <canvas ref={canvasRef} onClick={inferHue} />
             <Marker position={markerPosition} />
         </div>
     );
