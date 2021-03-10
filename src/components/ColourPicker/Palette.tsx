@@ -5,7 +5,6 @@ import Marker from "./Marker";
 import styles from "./Palette.module.scss";
 
 const drawCanvas = (ctx: CanvasRenderingContext2D, hue: number) => {
-    // TODO: See if <svg> or even <div> elements are faster... 🧐
     const { width, height } = getDimensions(ctx.canvas);
     const saturationGradient = ctx.createLinearGradient(0, 0, width, 0);
     const brightnessGradient = ctx.createLinearGradient(0, 0, 0, height);

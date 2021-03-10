@@ -9,10 +9,8 @@ import styles from './ColourPicker.module.scss';
 /**
  * Renders a CSS colour picker [see example]{@link https://samchristy.github.io/ColourPicker/}
  *
- * @param {function} onColourUpdate Callback that returns the colour as a CSS hex string.
- * @param {...*} props Properties for the component's <div> wrapper.
- * @returns {JSX.Element}
- * @constructor
+ * @param onColourUpdate Callback that returns the colour as a CSS hex string.
+ * @param props Properties for the component's <div> wrapper.
  */
 export default function ColourPicker({ onColourUpdate, ...props }: InferProps<typeof ColourPicker.propTypes>) {
     const [colour, setColour] = useState('');
