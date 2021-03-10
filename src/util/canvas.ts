@@ -1,25 +1,32 @@
 /**
  * Gets the coordinates of a click event on a DOM element.
  */
-export const getClickCoords = (element: HTMLElement, clickEvent: { clientX: number, clientY: number }):
-    { x: number, y: number } => {
-    const boundingBox = element.getBoundingClientRect();
+export const getClickCoords = (
+  element: HTMLElement,
+  clickEvent: { clientX: number; clientY: number }
+): { x: number; y: number } => {
+  const boundingBox = element.getBoundingClientRect();
 
-    return { x: clickEvent.clientX - boundingBox.left, y: clickEvent.clientY - boundingBox.top };
+  return { x: clickEvent.clientX - boundingBox.left, y: clickEvent.clientY - boundingBox.top };
 };
 
 /**
  * Gets the pixel data from the canvas, at the specified location.
  */
-export const getPixel = (canvas: HTMLCanvasElement, { x, y }: { x: number, y: number }): Uint8ClampedArray | null =>
-    canvas?.getContext('2d')?.getImageData(x, y, 1, 1).data || null;
+export const getPixel = (
+  canvas: HTMLCanvasElement,
+  { x, y }: { x: number; y: number }
+): Uint8ClampedArray | null => canvas?.getContext('2d')?.getImageData(x, y, 1, 1).data || null;
 
 /**
  * Converts an Uint8ClampedArray to a CSS hexadecimal colour, e.g. '#ff0000'.
  */
 export const rgbaToHex = (rgbaArray: Uint8ClampedArray): string => {
-    const rgb = rgbaArray.slice(0, 3);
-    return rgb.reduce((hex: string, component: number) =>  hex + component.toString(16).padStart(2, '0'), '#');
+  const rgb = rgbaArray.slice(0, 3);
+  return rgb.reduce(
+    (hex: string, component: number) => hex + component.toString(16).padStart(2, '0'),
+    '#'
+  );
 };
 
 /**
@@ -27,10 +34,10 @@ export const rgbaToHex = (rgbaArray: Uint8ClampedArray): string => {
  * CSS rules; so it's necessary to infer them from the DOM and explicitly apply them to the canvas
  * (so that pixels on the canvas and screen have a 1:1 mapping).
  */
-export const getDimensions = (canvas: HTMLCanvasElement): { width: number, height: number } => {
-    const { width, height } = canvas.getBoundingClientRect();
-    canvas.width = width;
-    canvas.height = height;
+export const getDimensions = (canvas: HTMLCanvasElement): { width: number; height: number } => {
+  const { width, height } = canvas.getBoundingClientRect();
+  canvas.setAttribute('width', String(width));
+  canvas.setAttribute('height', String(height));
 
-    return { width, height };
-}
+  return { width, height };
+};

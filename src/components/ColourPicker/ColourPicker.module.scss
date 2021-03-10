@@ -5,15 +5,15 @@ $componentThickness: 8%;
 $markerSize: 1em;
 
 @mixin container {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
 }
 @mixin rounded {
-    border: 1px $lightGrey solid;
-    border-radius: 7px;
+  border: 1px $lightGrey solid;
+  border-radius: 7px;
 }
 .colourPicker {
-    width: 450px;
-    height: 450px;
+  width: 450px;
+  height: 450px;
 }
