@@ -4,7 +4,7 @@ import styles from './Marker.module.scss';
 
 export default function Marker({ position: { x, y } }: InferProps<typeof Marker.propTypes>) {
   const style = {
-    ...(x !== undefined && x !== null ? { left: `${Math.round(x)}px` } : {}),
+    ...(typeof x === 'number' ? { left: `${Math.round(x)}px` } : {}),
     top: `${Math.round(y)}px`,
   };
 
