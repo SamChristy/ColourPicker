@@ -6,6 +6,10 @@ it('renders without crashing', () => {
   render(<ColourPicker onColourUpdate={() => {}} />);
 });
 
-// it('renders correctly', () => {});
-//
-// it('calls onColourUpdate callback, when a new colour is selected', () => {});
+xit('appends className prop', () => {});
+
+xit('applies other props', () => {});
+
+xit('updates colour swatch', () => {});
+
+xit('calls onColourUpdate callback with selected colour', () => {});
