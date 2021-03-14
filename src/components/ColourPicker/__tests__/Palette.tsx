@@ -4,9 +4,6 @@ import userEvent from '@testing-library/user-event';
 import * as util from '../../../util/canvas';
 import Palette from '../Palette';
 
-// TODO: Update jest settings to do this by default!
-afterEach(() => jest.restoreAllMocks());
-
 it('renders without crashing', () => {
   render(<Palette hue={0} onColourUpdate={() => {}} />);
 });
