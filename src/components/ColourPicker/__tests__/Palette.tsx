@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import * as util from '../../../util/canvas';
 import Palette from '../Palette';
 
@@ -46,7 +47,7 @@ it('updates colour when clicked', () => {
   const { container } = render(<Palette hue={0} onColourUpdate={mockCallback} />);
   const paletteCanvas = container.getElementsByTagName('canvas')[0];
 
-  fireEvent.click(paletteCanvas);
+  userEvent.click(paletteCanvas);
   expect(mockCallback).toBeCalledWith(black);
 });
 
@@ -59,6 +60,6 @@ it('selects correct colour', () => {
   const paletteCanvas = container.getElementsByTagName('canvas')[0];
   const darkRed = new Uint8ClampedArray([100, 20, 20, 255]);
 
-  fireEvent.click(paletteCanvas);
+  userEvent.click(paletteCanvas);
   expect(mockCallback).toBeCalledWith(expect.colourMatching(darkRed));
 });
