@@ -9,7 +9,9 @@ it('renders without crashing', () => {
 });
 
 it('renders correct colour for hue', () => {
-  jest.spyOn(util, 'getDimensions').mockImplementation(() => ({ width: 100, height: 100 }));
+  jest
+    .spyOn(util, 'getDimensions')
+    .mockImplementation(() => ({ ...global.emptyDOMRect, width: 100, height: 100 }));
   const blueHue = 240;
   const blue = new Uint8ClampedArray([0, 0, 255, 255]);
   const { container } = render(<Palette hue={blueHue} onColourUpdate={() => {}} />);
@@ -23,7 +25,9 @@ xit('updates marker position when clicked', () => {});
 it('updates colour when hue prop is changed', () => {
   const black = new Uint8ClampedArray([0, 0, 0, 0]);
   jest.spyOn(util, 'getPixel').mockImplementation(() => black);
-  jest.spyOn(util, 'getDimensions').mockImplementation(() => ({ width: 1, height: 1 }));
+  jest
+    .spyOn(util, 'getDimensions')
+    .mockImplementation(() => ({ ...global.emptyDOMRect, width: 1, height: 1 }));
 
   const { rerender } = render(<Palette hue={0} onColourUpdate={() => {}} />);
   const mockCallback = jest.fn((colour) => {});
@@ -38,7 +42,9 @@ it('updates colour when hue prop is changed', () => {
 it('updates colour when clicked', () => {
   const black = new Uint8ClampedArray([0, 0, 0, 0]);
   jest.spyOn(util, 'getPixel').mockImplementation(() => black);
-  jest.spyOn(util, 'getDimensions').mockImplementation(() => ({ width: 1, height: 1 }));
+  jest
+    .spyOn(util, 'getDimensions')
+    .mockImplementation(() => ({ ...global.emptyDOMRect, width: 1, height: 1 }));
 
   const mockCallback = jest.fn(() => {});
   const { container } = render(<Palette hue={0} onColourUpdate={mockCallback} />);
@@ -49,7 +55,9 @@ it('updates colour when clicked', () => {
 });
 
 it('selects correct colour', () => {
-  jest.spyOn(util, 'getDimensions').mockImplementation(() => ({ width: 100, height: 100 }));
+  jest
+    .spyOn(util, 'getDimensions')
+    .mockImplementation(() => ({ ...global.emptyDOMRect, width: 100, height: 100 }));
   jest.spyOn(util, 'getClickCoords').mockImplementation(() => ({ x: 80, y: 60 }));
 
   const mockCallback = jest.fn((colour) => {});
