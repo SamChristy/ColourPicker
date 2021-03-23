@@ -1,10 +1,15 @@
+type Position = {
+  x: number;
+  y: number;
+};
+
 /**
  * Gets the coordinates of a click event on a DOM element.
  */
 export const getClickCoords = (
   element: HTMLElement,
-  clickEvent: { clientX: number; clientY: number }
-): { x: number; y: number } => {
+  clickEvent: MouseEvent | React.MouseEvent
+): Position => {
   const boundingBox = element.getBoundingClientRect();
 
   return { x: clickEvent.clientX - boundingBox.left, y: clickEvent.clientY - boundingBox.top };
