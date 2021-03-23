@@ -1,6 +1,7 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
-import { getClickCoords, getDimensions } from '../canvas';
+import { createCanvas } from 'canvas';
+import { getClickCoords, getDimensions, getPixel } from '../canvas';
 
 describe('getClickCoords()', () => {
   it('returns the coordinates of the click on a DOM element', () => {
@@ -19,6 +20,36 @@ describe('getClickCoords()', () => {
   });
 });
 
+describe('getPixel()', () => {
+  const draw20By20GreenCanvas = () => {
+    const canvas = createCanvas(20, 20);
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#00FF00';
+    ctx.fillRect(0, 0, 20, 20);
+
+    return canvas;
+  };
+
+  it('returns the colour of the specified pixel', () => {
+    // @ts-ignore - because we're using the node canvas library
+    const pixel = getPixel(draw20By20GreenCanvas(), { x: 10, y: 10 });
+    const green = new Uint8ClampedArray([0, 255, 0, 255]);
+
+    expect(pixel).toMatchColour(green);
+  });
+  it('returns [0, 0, 0, 0] when pixel is out of bounds ', () => {
+    // @ts-ignore
+    const pixel = getPixel(draw20By20GreenCanvas(), { x: 21, y: 21 });
+
+    expect(pixel).toMatchColour(new Uint8ClampedArray([0, 0, 0, 0]));
+  });
+  it('returns null without canvas', () => {
+    // @ts-ignore
+    expect(getPixel(null, { x: 1000, y: 1000 })).toBeNull();
+  });
+});
+
 describe('getDimensions()', () => {
   const testGetDimensions = () => {
     const rect = {
@@ -29,11 +60,12 @@ describe('getDimensions()', () => {
     jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(() => rect);
     render(<canvas data-testid={1} />);
     const canvas = screen.getByTestId(1);
-    // @ts-ignore (Because getByTestId always returns a HTMLElement.)
+    // @ts-ignore - because getByTestId() always returns a HTMLElement
     const output = getDimensions(canvas);
 
     return { rect, canvas, output };
   };
+
   it("returns the canvas's dimensions", () => {
     const { rect, output } = testGetDimensions();
 
