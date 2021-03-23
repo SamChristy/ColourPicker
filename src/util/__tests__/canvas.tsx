@@ -13,7 +13,8 @@ describe('getClickCoords()', () => {
     }));
     render(<div data-testid={1} />);
     const div = screen.getByTestId(1);
-    // @ts-ignore
-    expect(getClickCoords(div, { clientX: 30, clientY: 85 })).toEqual({ x: 20, y: 70 });
+    const click = new MouseEvent('click', { clientX: 30, clientY: 85 });
+
+    expect(getClickCoords(div, click)).toEqual({ x: 20, y: 70 });
   });
 });
