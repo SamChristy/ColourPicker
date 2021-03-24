@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
 import { createCanvas } from 'canvas';
-import { getClickCoords, getDimensions, getPixel } from '../canvas';
+import { getClickCoords, getDimensions, getPixel, rgbaToHex } from '../canvas';
 
 describe('getClickCoords()', () => {
   it('returns the coordinates of the click on a DOM element', () => {
@@ -47,6 +47,20 @@ describe('getPixel()', () => {
   it('returns null without canvas', () => {
     // @ts-ignore
     expect(getPixel(null, { x: 1000, y: 1000 })).toBeNull();
+  });
+});
+
+const rgbaToHexData = [
+  { rgbaArray: new Uint8ClampedArray([0, 0, 0]), expected: '#000000' },
+  { rgbaArray: new Uint8ClampedArray([153, 0, 153]), expected: '#990099' },
+  { rgbaArray: new Uint8ClampedArray([255, 153, 51]), expected: '#ff9933' },
+  { rgbaArray: new Uint8ClampedArray([170, 255, 128]), expected: '#aaff80' },
+  { rgbaArray: new Uint8ClampedArray([255, 255, 255]), expected: '#ffffff' },
+];
+
+describe.each(rgbaToHexData)('rgbaToHex()', (data) => {
+  it(`colour: ${data.expected}`, () => {
+    expect(rgbaToHex(data.rgbaArray)).toBe(data.expected);
   });
 });
 
