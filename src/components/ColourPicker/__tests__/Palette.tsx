@@ -20,8 +20,6 @@ it('renders correct colour for hue', () => {
   expect(util.getPixel(paletteCanvas, { x: 99, y: 0 })).toMatchColour(blue);
 });
 
-xit('updates marker position when clicked', () => {});
-
 it('updates colour when hue prop is changed', () => {
   const black = new Uint8ClampedArray([0, 0, 0, 0]);
   jest.spyOn(util, 'getPixel').mockImplementation(() => black);
@@ -37,6 +35,17 @@ it('updates colour when hue prop is changed', () => {
   // Rerenders with the same value shouldn't trigger it again.
   rerender(<Palette hue={1} onColourUpdate={mockCallback} />);
   expect(mockCallback).toHaveBeenCalledTimes(1);
+});
+
+it('updates marker position when clicked', () => {
+  const { container } = render(<Palette hue={0} onColourUpdate={() => {}} />);
+  const paletteCanvas = container.getElementsByTagName('canvas')[0];
+
+  jest.spyOn(util, 'getPixel').mockImplementation(() => new Uint8ClampedArray());
+  userEvent.click(paletteCanvas, { clientX: 5, clientY: 10 });
+  const marker = container.getElementsByClassName('marker')[0];
+
+  expect(marker).toHaveStyle({ left: '5px', top: '10px' });
 });
 
 it('updates colour when clicked', () => {
