@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes, { InferProps } from 'prop-types';
 import styles from './Marker.module.scss';
 

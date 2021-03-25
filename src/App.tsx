@@ -1,4 +1,3 @@
-import React from 'react';
 import { ColourPicker } from './components';
 import './App.scss';
 

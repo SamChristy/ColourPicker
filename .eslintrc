@@ -22,7 +22,8 @@
     "max-len": [
       "warn",
       {
-        "code": 100
+        "code": 100,
+        "ignoreUrls": true
       }
     ],
     "no-plusplus": [
@@ -36,6 +37,8 @@
       {
         "html": "ignore"
       }
-    ]
+    ],
+    // No longer needed, as of React v17
+    "react/react-in-jsx-scope" : "off"
   }
 }

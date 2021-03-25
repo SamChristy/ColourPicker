@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, MouseEvent } from 'react';
+import { useEffect, useRef, useState, MouseEvent } from 'react';
 import PropTypes, { InferProps } from 'prop-types';
 import { getClickCoords, getDimensions } from '../../util/canvas';
 import Marker from './Marker';

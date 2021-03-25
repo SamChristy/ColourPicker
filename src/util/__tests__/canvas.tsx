@@ -1,4 +1,3 @@
-import React from 'react';
 import { screen, render } from '@testing-library/react';
 import { createCanvas } from 'canvas';
 import { getClickCoords, getDimensions, getPixel, rgbaToHex } from '../canvas';

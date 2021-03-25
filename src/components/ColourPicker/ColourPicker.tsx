@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes, { InferProps } from 'prop-types';
 import Palette from './Palette';
 import HueScale from './HueScale';
