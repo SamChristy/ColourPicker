@@ -57,11 +57,9 @@ const rgbaToHexData = [
   { rgbaArray: new Uint8ClampedArray([255, 255, 255]), expected: '#ffffff' },
 ];
 
-describe.each(rgbaToHexData)('rgbaToHex()', (data) => {
-  it(`colour: ${data.expected}`, () => {
-    expect(rgbaToHex(data.rgbaArray)).toBe(data.expected);
-  });
-});
+describe.each(rgbaToHexData)('rgbaToHex()', ({ rgbaArray, expected }) =>
+  test(`colour: ${expected}`, () => expect(rgbaToHex(rgbaArray)).toBe(expected))
+);
 
 describe('getDimensions()', () => {
   const testGetDimensions = () => {

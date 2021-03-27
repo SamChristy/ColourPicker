@@ -27,7 +27,7 @@ it('updates colour when hue prop is changed', () => {
     .mockImplementation(() => ({ ...global.emptyDOMRect, width: 1, height: 1 }));
 
   const { rerender } = render(<Palette hue={0} onColourUpdate={() => {}} />);
-  const mockCallback = jest.fn((colour) => {});
+  const mockCallback = jest.fn(() => {});
 
   rerender(<Palette hue={1} onColourUpdate={mockCallback} />);
   expect(mockCallback).toBeCalledWith(black);
@@ -68,7 +68,7 @@ it('selects correct colour', () => {
     .mockImplementation(() => ({ ...global.emptyDOMRect, width: 100, height: 100 }));
   jest.spyOn(util, 'getClickCoords').mockImplementation(() => ({ x: 80, y: 60 }));
 
-  const mockCallback = jest.fn((colour) => {});
+  const mockCallback = jest.fn(() => {});
   const { container } = render(<Palette hue={0} onColourUpdate={mockCallback} />);
   const paletteCanvas = container.getElementsByTagName('canvas')[0];
   const darkRed = new Uint8ClampedArray([100, 20, 20, 255]);

@@ -42,7 +42,7 @@ it('updates colour swatch', () => {
 it('calls onColourUpdate callback with selected colour', () => {
   const blueRGBA = new Uint8ClampedArray([0, 0, 255, 255]);
   const blueHexString = '#0000ff';
-  const mockCallback = jest.fn((colour) => {});
+  const mockCallback = jest.fn(() => {});
   const { container } = render(<ColourPicker onColourUpdate={mockCallback} />);
   const paletteCanvas = container
     .getElementsByClassName('palette')[0]
