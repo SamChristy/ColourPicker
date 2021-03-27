@@ -31,7 +31,7 @@ describe('getPixel()', () => {
   };
 
   it('returns the colour of the specified pixel', () => {
-    // @ts-ignore - because we're using the node canvas library
+    // @ts-ignore -- because we're using the node canvas library
     const pixel = getPixel(draw20By20GreenCanvas(), { x: 10, y: 10 });
     const green = new Uint8ClampedArray([0, 255, 0, 255]);
 
@@ -71,7 +71,7 @@ describe('getDimensions()', () => {
     jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(() => rect);
     render(<canvas data-testid={1} />);
     const canvas = screen.getByTestId(1);
-    // @ts-ignore - because getByTestId() always returns a HTMLElement
+    // @ts-ignore -- because getByTestId() always returns a HTMLElement
     const output = getDimensions(canvas);
 
     return { rect, canvas, output };

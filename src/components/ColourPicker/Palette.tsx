@@ -56,7 +56,7 @@ export default function Palette({ hue, onColourUpdate }: InferProps<typeof Palet
   return (
     <div className={`${styles.palette} palette`}>
       <canvas ref={canvasRef} onClick={onClick} />
-      <Marker position={markerPosition} />
+      <Marker position={markerPosition} onClick={onClick} />
     </div>
   );
 }

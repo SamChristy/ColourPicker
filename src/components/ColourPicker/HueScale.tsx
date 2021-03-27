@@ -41,7 +41,7 @@ export default function HueScale({ onHueUpdate }: InferProps<typeof HueScale.pro
   return (
     <div className={`${styles.hueScale} hueScale`}>
       <canvas ref={canvasRef} onClick={inferHue} />
-      <Marker position={markerPosition} />
+      <Marker position={markerPosition} onClick={inferHue} />
     </div>
   );
 }
