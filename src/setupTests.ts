@@ -1,5 +1,8 @@
 import '@testing-library/jest-dom';
 import 'jest-extended';
+import failOnConsole from 'jest-fail-on-console';
+
+failOnConsole();
 
 declare global {
   namespace NodeJS {
