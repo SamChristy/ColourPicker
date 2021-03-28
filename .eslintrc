@@ -26,6 +26,15 @@
         "ignoreUrls": true
       }
     ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "src/setupTests.ts",
+          "src/**/__tests__/**"
+        ]
+      }
+    ],
     "no-plusplus": [
       "error",
       {
