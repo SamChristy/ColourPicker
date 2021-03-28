@@ -1,5 +1,10 @@
 {
-  "plugins": ["prettier", "@typescript-eslint", "testing-library", "jest-dom"],
+  "plugins": [
+    "prettier",
+    "@typescript-eslint",
+    "testing-library",
+    "jest-dom"
+  ],
   "extends": [
     "airbnb-typescript",
     "react-app",
@@ -48,6 +53,6 @@
       }
     ],
     // No longer needed, as of React v17
-    "react/react-in-jsx-scope" : "off"
+    "react/react-in-jsx-scope": "off"
   }
 }
