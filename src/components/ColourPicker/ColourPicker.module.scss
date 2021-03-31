@@ -2,6 +2,8 @@ $lightGrey: #c2c2c2;
 $darkGrey: #373737;
 $componentPadding: 2%;
 $componentThickness: 8%;
+$borderWidth: 1px;
+$componentHeight: calc(100% - #{$componentThickness} - #{$componentPadding} - 4 * #{$borderWidth});
 $markerSize: 1em;
 
 @mixin container {
@@ -10,7 +12,7 @@ $markerSize: 1em;
   overflow: hidden;
 }
 @mixin rounded {
-  border: 1px $lightGrey solid;
+  border: $borderWidth $lightGrey solid;
   border-radius: 7px;
 }
 .colourPicker {
