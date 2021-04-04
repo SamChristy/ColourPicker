@@ -1,1 +1,0 @@
-export { ColourPicker } from './components';

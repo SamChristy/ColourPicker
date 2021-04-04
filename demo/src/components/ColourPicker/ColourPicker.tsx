@@ -7,7 +7,7 @@ import { rgbaToHex } from '../../util/canvas';
 import styles from './ColourPicker.module.scss';
 
 /**
- * Renders a CSS colour picker [see example]{@link https://samchristy.github.io/ColourPicker/}
+ * Renders a CSS colour picker [see demo]{@link https://samchristy.github.io/ColourPicker/}
  *
  * @param onColourUpdate Callback that returns the colour as a CSS hex string.
  * @param className Optional class that can be applied to the component's wrapper <div>.

@@ -26,12 +26,12 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "build"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "example",
+    "demo",
     "rollup.config.js"
   ]
 }

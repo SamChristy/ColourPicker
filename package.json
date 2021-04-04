@@ -1,13 +1,13 @@
 {
   "name": "basic-react-colour-picker",
   "version": "1.0.0",
-  "description": "[View live demo](http://samchristy.github.io/ColourPicker/)",
+  "description": "A basic react colour picker component.",
   "main": "dist/index.js",
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
-    "build": "rollup -c"
+    "build:create-build": "rm -rf build || true && mkdir build && touch build/index.ts",
+    "build:copy": "cp -r demo/src/{components,util,react-app-env.d.ts} build",
+    "build:create-index": "echo \"export { ColourPicker } from './components';\" > build/index.ts",
+    "build": "npm run build:create-build && npm run build:copy && npm run build:create-index && rollup -c"
   },
   "repository": {
     "type": "git",
