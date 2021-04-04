@@ -1,5 +1,5 @@
 {
-  "name": "basic-react-colour-picker",
+  "name": "react-colour-picker",
   "version": "1.0.0",
   "description": "A basic react colour picker component.",
   "main": "dist/index.js",
@@ -14,8 +14,8 @@
     "url": "git+https://github.com/SamChristy/ColourPicker.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Sam Christy",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/SamChristy/ColourPicker/issues"
   },
