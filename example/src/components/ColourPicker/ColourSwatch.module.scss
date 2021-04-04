@@ -6,10 +6,10 @@
   & > * {
     @include rounded;
     height: 100%;
+    float: left;
   }
   & > div {
     width: $componentThickness;
-    float: left;
   }
   & > input {
     color: $darkGrey;
