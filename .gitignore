@@ -8,6 +8,9 @@ coverage
 
 # production
 build
+src
+!src/index.ts
+/dist
 
 # ide
 /.idea
