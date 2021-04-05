@@ -1,7 +1,7 @@
 # 🎨 ColourPicker
-![npm](https://img.shields.io/npm/v/react-colour-picker?color=%23cc3534)
+[![npm](https://img.shields.io/npm/v/react-colour-picker?color=%23cc3534)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/react-colour-picker)
-![NPM](https://img.shields.io/npm/l/react-colour-picker)
+![NPM](https://img.shields.io/npm/l/react-colour-picker)](https://www.npmjs.com/package/react-colour-picker)
 
 🧪 Comprehensive test suite
 
@@ -20,7 +20,6 @@
 ### Usage
 ```typescript jsx
 import { ColourPicker } from 'react-colour-picker';
-import './App.css';
 
 export default function App() {
     return (
