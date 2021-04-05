@@ -1,6 +1,6 @@
 {
   "name": "react-colour-picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A basic react colour picker component.",
   "main": "dist/index.js",
   "scripts": {
@@ -33,7 +33,6 @@
   },
   "homepage": "http://samchristy.github.io/ColourPicker/",
   "sideEffects": false,
-
   "devDependencies": {
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
