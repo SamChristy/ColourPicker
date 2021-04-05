@@ -1,4 +1,7 @@
 # 🎨 ColourPicker
+![npm](https://img.shields.io/npm/v/react-colour-picker?color=%23cc3534)
+![npm bundle size](https://img.shields.io/bundlephobia/min/react-colour-picker)
+![NPM](https://img.shields.io/npm/l/react-colour-picker)
 
 🧪 Comprehensive test suite
 
@@ -12,7 +15,7 @@
 [Click here to view](http://samchristy.github.io/ColourPicker/)
 
 ## Installation
-`npm install react-colour-picker`
+`npm i react-colour-picker`
 
 ### Usage
 ```typescript jsx
@@ -34,45 +37,35 @@ Fully stylable, using regular CSS, the following classes are made available:
 ```css
 .colourPicker {/* Styles the main container*/}
 .palette {/* The palette, in the middle */}
-.hueScale { /* The hue scale, on the right */ }
+.hueScale {/* The hue scale, on the right */}
 .marker {/* The marker rings */}
 .colourSwatch {/* The colour block and input, at the bottom */}
 ```
 
 ### Development
-A [CRA](https://create-react-app.dev/docs/getting-started/) app is used, in `/demo`, not only
+A [CRA](https://create-react-app.dev/docs/getting-started/) project is used, in `/demo`, not only
 for the above demo page, but also for the actual development of the component; so we can benefit
-from all of the niceties that CRA bundles, without lumbering then on the users of the npm
+from all of the niceties that CRA bundles, without lumbering them on the users of the npm
 package! 😉
 
 #### To run the local demo:
 ```bash
 cd demo && npm start
+# In a separate tab:
+npm test
 ```
 #### Tests:
 ```bash
-npm test
+# Run all tests, once:
+npm test -- --watchAll=false
+# Code coverage report:
+npm run coverage
 ```
 
-## License
-The MIT License (MIT)
-
-Copyright (c) 2021, Sam Christy
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+### Distribution
+A separate bundler, Rollup, is used to produce a 
+[lighter distribution](https://blog.logrocket.com/does-my-bundle-look-big-in-this/). It's 
+run from the project's root:
+```bash
+npm run build
+```
